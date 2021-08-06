@@ -258,24 +258,27 @@ module RouterProgram = {
 };
 
 module ReactProgram = {
-  type state = ReasonReact.reactElement;
+  type state = React.element;
   type action =
-    | Render(ReasonReact.reactElement);
+    | Render(React.element);
 
-  let component = ReasonReact.reducerComponent("ApplicationContainer");
+  // let component = React.reducerComponent("ApplicationContainer");
+  [@react.component]
+  let make = (~program, ~router=?) => {
+    let (state, dispatch) =
+      React.useReducer(
+        (_state, action) =>
+          switch (action) {
+          | Render(view) => view
+          },
+        React.null,
+      );
+    React.useEffect(() => {
+      RouterProgram.run(~router?, program(), view => dispatch(Render(view)));
+      None;
+    });
 
-  let make = (~program, ~router=?, _children) => {
-    ...component,
-    initialState: () => ReasonReact.null,
-    didMount: self =>
-      RouterProgram.run(~router?, program(), view =>
-        self.send(Render(view))
-      ),
-    reducer: (action, _state) =>
-      switch (action) {
-      | Render(view) => ReasonReact.Update(view)
-      },
-    render: self => <> {self.state} </>,
+    <> state </>;
   };
 };
 

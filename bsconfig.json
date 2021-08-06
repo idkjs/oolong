@@ -1,7 +1,7 @@
 {
   "name": "@reasonableconsulting/oolong",
   "reason": {
-    "react-jsx": 2
+    "react-jsx": 3
   },
   "sources": [
     {
@@ -24,7 +24,6 @@
     "bs-history"
   ],
   "bsc-flags": [
-    "-bs-super-errors",
-  ],
-  "refmt": 3
+    "-bs-super-errors"
+  ]
 }

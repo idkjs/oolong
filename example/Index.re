@@ -1,16 +1,12 @@
-[%%debugger.chrome];
+// [%debugger.chrome];
 
 module S = {
-  /* Because people hate ReasonReact.string() for some reason */
-  let component = ReasonReact.statelessComponent("StringElement");
+  /* Because people hate React.string() for some reason */
+  [@react.component]
+  let make = (~children:string) => {
+    let str = Js.Array.joinWith(" ", [|children|]);
 
-  let make = children => {
-    ...component,
-    render: _self => {
-      let str = Js.Array.joinWith(" ", children);
-
-      ReasonReact.string(str);
-    },
+    React.string(str);
   };
 };
 
@@ -35,7 +31,7 @@ type action =
   | LoginSuccess(username, fullname)
   | LoginFailure(username)
   | Nothing;
-
+// [@react.component]
 let app = () => {
   let serializeState = state => {
     let user =
@@ -149,7 +145,7 @@ let app = () => {
         <button onClick={_ => self.send(Decrement)}>
           <S> "Decrement" </S>
         </button>
-        <button onClick={self.handle(double)}> <S> "Double" </S> </button>
+        <button onClick={e => (double(e,self))}> <S> "Double" </S> </button>
         <button onClick={_ => self.send(Nothing)}>
           <S> "Do Nothing" </S>
         </button>
@@ -162,15 +158,6 @@ let app = () => {
   };
 };
 
-[%raw
-  {|
-  function() {
-    var app = document.createElement("div");
-    app.id = "app";
-    document.body.appendChild(app);
-  }()
-|}
-];
 
 Oolong.run(~router=Oolong.Router.hash(), app(), view =>
   ReactDOMRe.renderToElementWithId(view, "app")

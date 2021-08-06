@@ -50,29 +50,22 @@ module ReactProgram: {
   type state;
   type action;
 
-  let component:
-    ReasonReact.componentSpec(
-      ReasonReact.reactElement,
-      ReasonReact.stateless,
-      ReasonReact.noRetainedProps,
-      ReasonReact.noRetainedProps,
-      action,
-    );
-
+  // let component:
+  //   React.componentSpec(
+  //     React.reactElement,
+  //     React.stateless,
+  //     React.noRetainedProps,
+  //     React.noRetainedProps,
+  //     action,
+  //   );
+[@react.component]
   let make:
     (
       ~program: unit =>
-                RouterProgram.t('action, 'state, ReasonReact.reactElement),
+                RouterProgram.t('action, 'state, React.element),
       ~router: Router.t=?,
       array(unit)
-    ) =>
-    ReasonReact.componentSpec(
-      ReasonReact.reactElement,
-      ReasonReact.reactElement,
-      ReasonReact.noRetainedProps,
-      ReasonReact.noRetainedProps,
-      action,
-    );
+    ) =>React.element;
 };
 
 let routerProgram:

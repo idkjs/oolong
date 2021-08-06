@@ -35,15 +35,15 @@ let counterProgram = {
     },
   render: self =>
     <div>
-      {ReasonReact.string(string_of_int(self.state.counter))}
+      {React.string(string_of_int(self.state.counter))}
       <button onClick={_ => self.send(Increment)}>
-        {ReasonReact.string("Increment")}
+        {React.string("Increment")}
       </button>
       <button onClick={_ => self.send(Decrement)}>
-        {ReasonReact.string("Decrement")}
+        {React.string("Decrement")}
       </button>
       <button onClick={_ => self.send(Double(self.state.counter))}>
-        {ReasonReact.string("Double")}
+        {React.string("Double")}
       </button>
     </div>,
 };

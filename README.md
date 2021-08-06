@@ -42,15 +42,15 @@ let counterProgram = {
     },
   render: self =>
     <div>
-      {ReasonReact.string(string_of_int(self.state.counter))}
-      <button onClick={_ => self.send(Increment)}>
-        {ReasonReact.string("Increment")}
+      {React.string(string_of_int(state.counter))}
+      <button onClick={_ => send(Increment)}>
+        {React.string("Increment")}
       </button>
-      <button onClick={_ => self.send(Decrement)}>
-        {ReasonReact.string("Decrement")}
+      <button onClick={_ => send(Decrement)}>
+        {React.string("Decrement")}
       </button>
-      <button onClick={_ => self.send(Double(self.state.counter))}>
-        {ReasonReact.string("Double")}
+      <button onClick={_ => send(Double(state.counter))}>
+        {React.string("Double")}
       </button>
     </div>,
 };

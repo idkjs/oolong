@@ -89,13 +89,13 @@ module Router = {
 
   let getCurrent = router => BsHistory.location(router);
 
-  [@bs.send] external push: (t, string) => unit = "";
+  [@bs.send] external push: (t, string) => unit = "push";
   let pushAtomic = (router, url) => {
     atomic := true;
     push(router, url);
     atomic := false;
   };
-  [@bs.send] external replace: (t, string) => unit = "";
+  [@bs.send] external replace: (t, string) => unit = "replace";
   let replaceAtomic = (router, url) => {
     atomic := true;
     replace(router, url);
@@ -107,13 +107,13 @@ module Router = {
     pop(router);
     atomic := false;
   };
-  [@bs.send] external go: (t, int) => unit = "";
+  [@bs.send] external go: (t, int) => unit = "go";
   let goAtomic = (router, amount) => {
     atomic := true;
     go(router, amount);
     atomic := false;
   };
-  [@bs.send] external canGo: (t, int) => bool = "";
+  [@bs.send] external canGo: (t, int) => bool = "canGo";
 };
 
 module Url = {
